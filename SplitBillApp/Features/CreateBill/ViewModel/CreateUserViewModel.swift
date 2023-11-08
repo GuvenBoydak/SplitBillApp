@@ -13,11 +13,22 @@ final class CreateUserViewModel {
 }
 // MARK: - CreateUserViewModelProtocol
 extension CreateUserViewModel: CreateUserViewModelProtocol {
+    func updateUser(user: User) {
+        let params : [String:Any] = ["id": user.id,
+                                     "firstname": user.firstname,
+                                     "lastname": user.lastname,
+                                     "email": user.email,
+                                     "isChecked": false,
+                                     "imageURL": user.imageUrl]
+        return FIREBASE_USER.document(user.id).setData(params, merge: true)
+    }
+    
     func createUser(user: User) -> String {
         let params : [String:Any] = ["id":"",
                                      "firstname":user.firstname,
                                      "lastname":user.lastname,
                                      "email":user.email,
+                                     "isChecked":false,
                                      "imageURL":user.imageUrl]
         return FIREBASE_USER.addDocument(data: params) { error in
             if error != nil { print(error?.localizedDescription ?? "")}
@@ -25,9 +36,8 @@ extension CreateUserViewModel: CreateUserViewModelProtocol {
     }
     
     func fechtUsers(complation: @escaping ([User]?,Error?) -> ()) {
-        var userList = [User]()
         FIREBASE_USER.getDocuments { snapshot, error in
-            if let error = error { complation(nil,error)}
+            if let error = error { complation(nil,error); return}
             let userList: [User] = snapshot?.documents.compactMap { document in
                        let data = document.data()
                        let id = document.documentID
@@ -41,4 +51,5 @@ extension CreateUserViewModel: CreateUserViewModelProtocol {
             complation(userList,nil)
         }
     }
+    
 }
