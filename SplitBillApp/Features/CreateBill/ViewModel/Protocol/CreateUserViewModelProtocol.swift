@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CreateUserViewModelProtocol {
-    func createUser(user: User) -> String
+    func createUser(user: User) 
     func updateUser(user: User)
     func fechtUsers(complation: @escaping ([User]?,Error?) -> ())
 }

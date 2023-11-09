@@ -23,16 +23,16 @@ extension CreateUserViewModel: CreateUserViewModelProtocol {
         return FIREBASE_USER.document(user.id).setData(params, merge: true)
     }
     
-    func createUser(user: User) -> String {
+    func createUser(user: User) {
         let params : [String:Any] = ["id":"",
                                      "firstname":user.firstname,
                                      "lastname":user.lastname,
                                      "email":user.email,
                                      "isChecked":false,
                                      "imageURL":user.imageUrl]
-        return FIREBASE_USER.addDocument(data: params) { error in
+         FIREBASE_USER.addDocument(data: params) { error in
             if error != nil { print(error?.localizedDescription ?? "")}
-        }.documentID
+        }
     }
     
     func fechtUsers(complation: @escaping ([User]?,Error?) -> ()) {
@@ -45,8 +45,9 @@ extension CreateUserViewModel: CreateUserViewModelProtocol {
                        let lastname = data["lastname"] as? String ?? ""
                        let email = data["email"] as? String ?? ""
                        let imageUrl = data["imageURL"] as? String ?? ""
+                    let isChecked = data["isChecked"] as? Bool ?? false
                 
-                       return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageUrl)
+                       return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageUrl,isChecked: isChecked)
                    } ?? []
             complation(userList,nil)
         }
