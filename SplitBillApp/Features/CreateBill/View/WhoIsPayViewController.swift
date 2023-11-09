@@ -13,12 +13,13 @@ final class WhoIsPayViewController: UICollectionViewController {
 
     // MARK: - Properties
     var userList: [User]? {
-        didSet { DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }}
+       didSet {
+           reloadCollectionView()
+        }
     }
     var createUserVM = CreateUserViewModel()
     weak var delegate: DidSelectUserProtocol?
+    var selectedUser = ""
     // MARK: - Life Cycle
     init() {
         let flowLayout = UICollectionViewFlowLayout()
@@ -26,7 +27,6 @@ final class WhoIsPayViewController: UICollectionViewController {
         flowLayout.minimumLineSpacing = 0
         super.init(collectionViewLayout: flowLayout)
         style()
-        layout()
         
         createUserVM.fechtUsers { response, error in
             if error != nil { print(error?.localizedDescription ?? ""); return}
@@ -46,7 +46,10 @@ extension WhoIsPayViewController {
         collectionView.backgroundColor = .lightGray
         collectionView.register(WhoIsPayCell.self, forCellWithReuseIdentifier: WhoIsPayCell.WhoIsPayIdentifier.custom.rawValue)
     }
-    private func layout() {
+    private func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 }
 // MARK: - UICollectionViewDataSource
@@ -57,12 +60,21 @@ extension WhoIsPayViewController {
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WhoIsPayCell.WhoIsPayIdentifier.custom.rawValue, for: indexPath) as! WhoIsPayCell
-        if let user = userList?[indexPath.item] { cell.user = user }
+        if let user = userList?[indexPath.item] {
+            cell.user = user;
+            if selectedUser == user.id{
+                cell.cellContainer.backgroundColor = .white
+            } else {
+                cell.cellContainer.backgroundColor = .lightGray
+            }
+        }
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let user = userList?[indexPath.item] else { return}
+        if selectedUser == user.id { selectedUser = "" } else { selectedUser = user.id }
         delegate?.didSelectWhoIsPayUser(user: user)
+        reloadCollectionView()
     }
 }
 // MARK: - UICollectionViewDelegateFlowLayout

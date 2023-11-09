@@ -7,7 +7,7 @@
 
 import UIKit
 protocol UpdateUserProtocol: AnyObject {
-    func updateUser(index: IndexPath)
+    func updateUser(user: User)
 }
 
 final class WhoIsSharingCell: UICollectionViewCell {
@@ -55,8 +55,7 @@ final class WhoIsSharingCell: UICollectionViewCell {
     var user: User? {
         didSet { configure() }
     }
-   weak var delegate: UpdateUserProtocol?
-    var indexPath: IndexPath?
+    weak var delegate: UpdateUserProtocol?
     // MARK: - Enums
     enum WhoIsSharingIdentifier: String {
         case custom = "WhoIsSharingCell"
@@ -81,7 +80,6 @@ extension WhoIsSharingCell {
             view.translatesAutoresizingMaskIntoConstraints = false
             addSubview(view)
         }
-
     }
     private func layout() {
         NSLayoutConstraint.activate([
@@ -116,14 +114,14 @@ extension WhoIsSharingCell {
         } else {
             checkBoxButton.setImage(UIImage(named: "unchecked"), for: .normal)
         }
-
     }
 }
 // MARK: - Selector
 extension WhoIsSharingCell {
-  @objc  private func updateUser() {
-        if let index = indexPath, let protocolDelegate = delegate {
-            protocolDelegate.updateUser(index: index)
+  @objc private func updateUser() {
+      if let protocolDelegate = delegate ,let user = user {
+          let updateUser = User(id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, imageUrl: user.imageUrl, isChecked: !(user.isChecked))
+          protocolDelegate.updateUser(user: updateUser)
         }
     }
 }

@@ -7,9 +7,10 @@
 
 import UIKit
 
+
 final class WhoIsPayCell: UICollectionViewCell {
     // MARK: - UIElements
-    private let cellContainer: UIView = {
+     let cellContainer: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 34
         view.backgroundColor = .lightGray

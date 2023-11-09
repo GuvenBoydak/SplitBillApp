@@ -83,7 +83,6 @@ final class CreateUserViewController: UIViewController {
     var createUserVM = CreateUserViewModel()
     var imageUrl = ""
     var isImageSelected = false
-    var dismissCompletion: (() -> Void)?
     
     // MARK: - Life Cycle
     override func loadView() {
@@ -171,14 +170,10 @@ extension CreateUserViewController {
                 }
             }
         }
-        dismiss(animated: true) {
-            self.dismissCompletion?()
-        }
+        dismiss(animated: true)
     }
     @objc private func closeView() {
-        dismiss(animated: true) {
-            self.dismissCompletion?()
-        }
+        dismiss(animated: true)
     }
 }
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -198,6 +193,5 @@ extension CreateUserViewController: UIImagePickerControllerDelegate, UINavigatio
        }
        dismiss(animated: true)
    }
-    
 }
 
