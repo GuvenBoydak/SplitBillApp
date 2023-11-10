@@ -109,11 +109,8 @@ extension WhoIsSharingCell {
         guard let data = user else { return }
         nameLabel.text = "\(data.firstname) \(data.lastname)"
         image.setPicture(url: data.imageUrl)
-        if data.isChecked {
-            checkBoxButton.setImage(UIImage(named: "checked"), for: .normal)
-        } else {
-            checkBoxButton.setImage(UIImage(named: "unchecked"), for: .normal)
-        }
+        let isChecked = UserDefaults.standard.bool(forKey: "firstOpening") ? false : data.isChecked
+        checkBoxButton.setImage(UIImage(named: isChecked ? "unchecked" : "checked"), for: .normal)
     }
 }
 // MARK: - Selector

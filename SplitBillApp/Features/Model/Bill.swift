@@ -29,5 +29,6 @@ struct Bill {
     }
     
     init() {
+        self.splitUser = []
     }
 }

@@ -18,9 +18,10 @@ final class CreateBillViewController: UICollectionViewController {
         view.layer.cornerRadius = 20
         return view
     }()
-    private let billImage: UIImageView = {
+    private var billImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
+        image.layer.cornerRadius = 20
         image.image = UIImage(named: "aytug")
         image.isUserInteractionEnabled = true
         return image
@@ -33,6 +34,8 @@ final class CreateBillViewController: UICollectionViewController {
     }()
     private let amountTextField: UITextField = {
        let textField = UITextField()
+        textField.autocorrectionType = .no
+        textField.textAlignment = .center
         textField.backgroundColor = .white
         return textField
     }()
@@ -44,6 +47,8 @@ final class CreateBillViewController: UICollectionViewController {
     }()
     private let titleTextField: UITextField = {
        let textField = UITextField()
+        textField.autocorrectionType = .no
+        textField.textAlignment = .center
         textField.backgroundColor = .white
         return textField
     }()
@@ -106,6 +111,7 @@ final class CreateBillViewController: UICollectionViewController {
         didSet { DispatchQueue.main.async {
             self.collectionView.reloadData()
         }}
+        willSet { UserDefaults.standard.set(false, forKey: "firstOpening") }
     }
     var bill = Bill()
     var createBillVM = CreateBillViewModel()
@@ -116,6 +122,7 @@ final class CreateBillViewController: UICollectionViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumLineSpacing = 0
         super.init(collectionViewLayout: flowLayout)
+        UserDefaults.standard.set(true, forKey: "firstOpening")
         style()
         saveButton.addTarget(self, action: #selector(addBill), for: .touchUpInside)
         datePicker.addTarget(self, action: #selector(getDateFromPicker), for: .valueChanged)
@@ -130,6 +137,9 @@ final class CreateBillViewController: UICollectionViewController {
         fechtUsers()
         whoIsPayVC.delegate = self
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -140,6 +150,7 @@ extension CreateBillViewController {
        if let amount = Double(amountTextField.text ?? "0.0"),let title = titleTextField.text {
            bill.amount = amount
            bill.title = title
+           let billId = createBillVM.createNewBill(bill: bill)
        }
     }
     @objc private func getDateFromPicker(_ sender: UIDatePicker) {
@@ -166,6 +177,7 @@ extension CreateBillViewController: UIImagePickerControllerDelegate, UINavigatio
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.originalImage] as? UIImage else { return }
+        self.billImage.image = image
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
 
         ImageHelper().createAndReturnURL(fileName: UUID().uuidString, data: imageData) { (url) in
@@ -183,7 +195,9 @@ extension CreateBillViewController {
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WhoIsSharingCell.WhoIsSharingIdentifier.custom.rawValue, for: indexPath) as! WhoIsSharingCell
-        if let user = userList?[indexPath.item] { cell.user = user }
+        if let user = userList?[indexPath.item] {
+            cell.user = user
+        }
         cell.delegate = self
         return cell
     }
