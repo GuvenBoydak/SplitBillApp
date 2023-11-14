@@ -46,7 +46,7 @@ final class WhoIsSharingCell: UICollectionViewCell {
     }()
     private let checkBoxButton: UIButton = {
        let button = UIButton()
-        button.setImage(UIImage(named: "checked"), for: .normal)
+        button.setImage(UIImage(named: "unchecked"), for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
         return button
@@ -56,14 +56,18 @@ final class WhoIsSharingCell: UICollectionViewCell {
         didSet { configure() }
     }
     weak var delegate: UpdateUserProtocol?
+    
     // MARK: - Enums
     enum WhoIsSharingIdentifier: String {
         case custom = "WhoIsSharingCell"
     }
+    
     // MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        checkBoxButton.addTarget(self, action: #selector(updateUser), for: .touchUpInside)
+        checkBoxButton.addTarget(self
+                                 , action: #selector(updateUser)
+                                 , for: .touchUpInside)
         style()
         layout()
     }
@@ -109,15 +113,19 @@ extension WhoIsSharingCell {
         guard let data = user else { return }
         nameLabel.text = "\(data.firstname) \(data.lastname)"
         image.setPicture(url: data.imageUrl)
-        let isChecked = UserDefaults.standard.bool(forKey: "firstOpening") ? false : data.isChecked
-        checkBoxButton.setImage(UIImage(named: isChecked ? "unchecked" : "checked"), for: .normal)
+        checkBoxButton.setImage(UIImage(named: data.isChecked ? "checked" : "unchecked" ), for: .normal)
     }
 }
 // MARK: - Selector
 extension WhoIsSharingCell {
   @objc private func updateUser() {
       if let protocolDelegate = delegate ,let user = user {
-          let updateUser = User(id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, imageUrl: user.imageUrl, isChecked: !(user.isChecked))
+          let updateUser = User(id: user.id
+                                , firstname: user.firstname
+                                , lastname: user.lastname
+                                , email: user.email
+                                , imageUrl: user.imageUrl
+                                , isChecked: !(user.isChecked))
           protocolDelegate.updateUser(user: updateUser)
         }
     }

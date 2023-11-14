@@ -89,9 +89,14 @@ final class CreateUserViewController: UIViewController {
         super.loadView()
         style()
         layout()
-        saveButton.addTarget(self, action: #selector(saveUser), for: .touchUpInside)
-        closeViewButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        saveButton.addTarget(self
+                             , action: #selector(saveUser)
+                             , for: .touchUpInside)
+        closeViewButton.addTarget(self
+                                  , action: #selector(closeView)
+                                  , for: .touchUpInside)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self
+                                                          , action: #selector(imageTapped))
         image.addGestureRecognizer(tapGestureRecognizer)
     }
 }

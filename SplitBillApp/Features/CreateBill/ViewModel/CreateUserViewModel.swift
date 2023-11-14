@@ -45,7 +45,7 @@ extension CreateUserViewModel: CreateUserViewModelProtocol {
                        let lastname = data["lastname"] as? String ?? ""
                        let email = data["email"] as? String ?? ""
                        let imageUrl = data["imageURL"] as? String ?? ""
-                    let isChecked = data["isChecked"] as? Bool ?? false
+                       let isChecked = data["isChecked"] as? Bool ?? false
                 
                        return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageUrl,isChecked: isChecked)
                    } ?? []
