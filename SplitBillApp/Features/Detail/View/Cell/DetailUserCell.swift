@@ -19,7 +19,8 @@ final class DetailUserCell: UITableViewCell {
     }()
     private let profileImage: UIImageView = {
         let image = UIImageView()
-        image.layer.cornerRadius = 30
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 22
         image.image = UIImage(named: "aytug")
         return image
     }()
@@ -63,8 +64,13 @@ final class DetailUserCell: UITableViewCell {
         progresBar.progressTintColor = .cyan
         return progresBar
     }()
+    
     // MARK: - Properties
     var isMinus = false
+    var detailUser: DetailUser? {
+        didSet { configure() }
+    }
+    
     // MARK: - Enums
     enum DetailUserIdentifier: String {
         case custom = "DetailUserCell"
@@ -75,9 +81,9 @@ final class DetailUserCell: UITableViewCell {
         setup()
         layout()
         
-        /// DUZELTILECEK
-        if isMinus { nameLabel.text  = ""; nameScoundLabel.text = "Tany" } else {  nameLabel.text = "Jony"; nameScoundLabel.text = "" }
-        if isMinus {  priceSecoundLabel.text = ""; priceLabel.text  = "+ 155 TL" } else {  priceSecoundLabel.text = " +152 TL"; priceLabel.text = ""}
+        if let data = detailUser {
+
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -86,6 +92,12 @@ final class DetailUserCell: UITableViewCell {
 }
 // MARK: - Helpers
 extension DetailUserCell {
+    private func configure() {
+        guard let data = detailUser else { return }
+        profileImage.setPicture(url: data.imageUrl)
+        if data.isPay { nameLabel.text  = ""; nameScoundLabel.text = data.name } else {  nameLabel.text = data.name ; nameScoundLabel.text = "" }
+        if data.isPay { priceSecoundLabel.text = ""; priceLabel.text  = " +\(data.amount)" } else {  priceSecoundLabel.text = "-\(data.amount)" ; priceLabel.text = ""}
+    }
     private func setup() {
         minusContainer.translatesAutoresizingMaskIntoConstraints = false
         plusContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -128,13 +140,13 @@ extension DetailUserCell {
             plusProgresBar.leadingAnchor.constraint(equalTo: plusContainer.leadingAnchor),
             plusProgresBar.heightAnchor.constraint(equalToConstant: 25),
             plusProgresBar.centerYAnchor.constraint(equalTo: centerYAnchor),
-            priceLabel.trailingAnchor.constraint(equalTo: minusContainer.leadingAnchor, constant: 160),
+            priceLabel.trailingAnchor.constraint(equalTo: minusContainer.leadingAnchor, constant: 150),
             priceLabel.centerYAnchor.constraint(equalTo: minusContainer.centerYAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: minusContainer.leadingAnchor, constant: 160),
+            nameLabel.trailingAnchor.constraint(equalTo: minusContainer.leadingAnchor, constant: 150),
             nameLabel.centerYAnchor.constraint(equalTo: minusContainer.centerYAnchor),
-            priceSecoundLabel.leadingAnchor.constraint(equalTo: plusProgresBar.leadingAnchor),
+            priceSecoundLabel.leadingAnchor.constraint(equalTo: plusProgresBar.leadingAnchor,constant: 8),
             priceSecoundLabel.centerYAnchor.constraint(equalTo: plusProgresBar.centerYAnchor),
-            nameScoundLabel.trailingAnchor.constraint(equalTo: plusContainer.trailingAnchor),
+            nameScoundLabel.leadingAnchor.constraint(equalTo: plusProgresBar.leadingAnchor,constant: 8),
             nameScoundLabel.centerYAnchor.constraint(equalTo: plusContainer.centerYAnchor),
             profileImage.leadingAnchor.constraint(equalTo: minusContainer.trailingAnchor),
             profileImage.trailingAnchor.constraint(equalTo: plusContainer.leadingAnchor),
