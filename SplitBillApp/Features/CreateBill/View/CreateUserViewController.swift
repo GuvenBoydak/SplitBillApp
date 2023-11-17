@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol CreateUserViewProtocol: AnyObject {
+    func viewDidLoad()
+}
 
 final class CreateUserViewController: UIViewController {
     // MARK: - UIElements
@@ -80,13 +83,57 @@ final class CreateUserViewController: UIViewController {
     }()
 
     // MARK: - Properties
-    var createUserVM = CreateUserViewModel()
-    var imageUrl = ""
-    var isImageSelected = false
+  private lazy var createUserVM = CreateUserViewModel()
     
     // MARK: - Life Cycle
     override func loadView() {
         super.loadView()
+        prepaerPresenter()
+    }
+}
+
+// MARK: - Selectors
+extension CreateUserViewController {
+    @objc private func saveUser() {
+        guard let firstname = nameTextField.text
+                ,let lastname = lastnameTextField.text
+                , let email = emailTextField.text
+                ,let imageData = UIImage(systemName: "person.circle")?.pngData() else { return }
+        var user = User(id: ""
+                        , firstname: firstname
+                        , lastname: lastname
+                        , email: email
+                        , imageUrl: ""
+                        ,isChecked: false)
+        createUserVM.createUser(user: user, imageData: imageData)
+        dismiss(animated: true)
+    }
+    @objc private func closeView() {
+        dismiss(animated: true)
+    }
+}
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension CreateUserViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+   @objc private func imageTapped(_ sender: UITapGestureRecognizer) {
+       let imagePickerController = UIImagePickerController()
+       imagePickerController.sourceType = UIImagePickerController.SourceType.photoLibrary
+       imagePickerController.delegate = self
+       createUserVM.isImageSelected = true
+       present(imagePickerController, animated: true)
+   }
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+       guard let image = info[.originalImage] as? UIImage
+                ,let imageData = image.jpegData(compressionQuality: 1.0) else { return }
+       
+       createUserVM.createUserImage(imageData: imageData)
+       dismiss(animated: true)
+   }
+}
+
+//MARK: - CreateUserViewProtocol
+extension CreateUserViewController: CreateUserViewProtocol {
+    func prepaerPresenter() {
+        createUserVM.view = self
         style()
         layout()
         saveButton.addTarget(self
@@ -100,6 +147,7 @@ final class CreateUserViewController: UIViewController {
         image.addGestureRecognizer(tapGestureRecognizer)
     }
 }
+
 // MARK: - Helpers
 extension CreateUserViewController {
     private func style() {
@@ -158,45 +206,3 @@ extension CreateUserViewController {
         ])
     }
 }
-// MARK: - Selectors
-extension CreateUserViewController {
-    @objc private func saveUser() {
-        guard let firstname = nameTextField.text,let lastname = lastnameTextField.text, let email = emailTextField.text,let imageData = UIImage(systemName: "person.circle")?.pngData() else { return }
-        var user = User(id: "", firstname: firstname, lastname: lastname, email: email, imageUrl: "",isChecked: false)
-        	
-        if isImageSelected {
-            user.imageUrl = imageUrl
-            self.createUserVM.createUser(user: user)
-        } else {
-            ImageHelper().createAndReturnURL(fileName: firstname.lowercased(), data: imageData) { url in
-                if let imageURL = url {
-                    user.imageUrl = imageURL
-                    self.createUserVM.createUser(user: user)
-                }
-            }
-        }
-        dismiss(animated: true)
-    }
-    @objc private func closeView() {
-        dismiss(animated: true)
-    }
-}
-// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-extension CreateUserViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-   @objc private func imageTapped(_ sender: UITapGestureRecognizer) {
-       let imagePickerController = UIImagePickerController()
-       imagePickerController.sourceType = UIImagePickerController.SourceType.photoLibrary
-       imagePickerController.delegate = self
-       isImageSelected = true
-       present(imagePickerController, animated: true)
-   }
-   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-       guard let image = info[.originalImage] as? UIImage,let imageData = image.jpegData(compressionQuality: 1.0) else { return }
-       ImageHelper().createAndReturnURL(fileName: UUID().uuidString, data: imageData) { (url) in
-           guard let url = url else { return }
-           self.imageUrl = url
-       }
-       dismiss(animated: true)
-   }
-}
-
