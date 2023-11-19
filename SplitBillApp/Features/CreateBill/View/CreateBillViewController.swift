@@ -7,7 +7,45 @@
 
 import UIKit
 protocol DidSelectUserProtocol: AnyObject {
-    func didSelectWhoIsPayUser(user: User)
+    func didSelectWhoIsPayUser(user: User,isSelected: Bool)
+}
+protocol CreateBillViewProtocol: AnyObject {
+    func reloadData()
+    func prepareView()
+}
+
+extension CreateBillViewController: CreateBillViewProtocol {
+    func reloadData() {
+           DispatchQueue.main.async
+       {
+           self.collectionView.reloadData()
+       }
+   }
+    func prepareView() {
+        style()
+        view.backgroundColor =  UIColor(named: "background")
+        navigationItem.title = "NEW Bill"
+        collectionView.layer.cornerRadius = 30
+        collectionView.backgroundColor = .lightText
+        collectionView.allowsMultipleSelection = true
+        collectionView.register(WhoIsSharingCell.self, forCellWithReuseIdentifier: WhoIsSharingCell.WhoIsSharingIdentifier.custom.rawValue)
+        saveButton.addTarget(self,
+                             action: #selector(addBill),
+                             for: .touchUpInside)
+        datePicker.addTarget(self,
+                             action: #selector(getDateFromPicker),
+                             for: .valueChanged)
+        addUserButton.addTarget(self,
+                                action: #selector(addUser),
+                                for: .touchUpInside)
+        addUPayUserButton.addTarget(self,
+                                    action: #selector(addUser),
+                                    for: .touchUpInside)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(billImageTapped))
+        billImage.addGestureRecognizer(tapGestureRecognizer)
+        whoIsPayVC.whoIsPayVM.delegate = self
+        createBillVM.fechtUsers()
+    }
 }
 
 final class CreateBillViewController: UICollectionViewController {
@@ -107,38 +145,16 @@ final class CreateBillViewController: UICollectionViewController {
         return label
     }()
     // MARK: - Properties
-    var userList: [User]? {
-        didSet { DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }}
-        willSet { UserDefaults.standard.set(false, forKey: "firstOpening") }
-    }
-    var bill = Bill()
-    var createBillVM = CreateBillViewModel()
-    var createUserVM = CreateUserViewModel()
+    lazy  var createBillVM = CreateBillViewModel()
     var whoIsPayVC = WhoIsPayViewController()
+    
     // MARK: - Life Cycle
     init() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumLineSpacing = 0
         super.init(collectionViewLayout: flowLayout)
-        UserDefaults.standard.set(true, forKey: "firstOpening")
-        style()
-        saveButton.addTarget(self, action: #selector(addBill), for: .touchUpInside)
-        datePicker.addTarget(self, action: #selector(getDateFromPicker), for: .valueChanged)
-        addUserButton.addTarget(self, action: #selector(addUser), for: .touchUpInside)
-        addUPayUserButton.addTarget(self, action: #selector(addUser), for: .touchUpInside)
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(billImageTapped))
-        billImage.addGestureRecognizer(tapGestureRecognizer)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fechtUsers()
-        whoIsPayVC.delegate = self
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        createBillVM.view = self
+        createBillVM.viewDidLoad()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -148,18 +164,20 @@ final class CreateBillViewController: UICollectionViewController {
 extension CreateBillViewController {
    @objc private func addBill() {
        if let amount = Double(amountTextField.text ?? "0.0"),let title = titleTextField.text {
-           bill.amount = amount
-           bill.title = title
-           let billId = createBillVM.createNewBill(bill: bill)
+           createBillVM.bill.amount = amount
+           createBillVM.bill.title = title
+           
+           createBillVM.createNewBill()
+           navigationController?.popViewController(animated: true)
        }
     }
     @objc private func getDateFromPicker(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        bill.date = dateFormatter.string(from: sender.date)
+        createBillVM.bill.date = dateFormatter.string(from: sender.date)
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
-        bill.time = timeFormatter.string(from: sender.date)
+        createBillVM.bill.time = timeFormatter.string(from: sender.date)
      }
     @objc private func addUser() {
         let createUserVC = CreateUserViewController()
@@ -180,71 +198,50 @@ extension CreateBillViewController: UIImagePickerControllerDelegate, UINavigatio
         self.billImage.image = image
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
 
-        ImageHelper().createAndReturnURL(fileName: UUID().uuidString, data: imageData) { (url) in
-            guard let url = url else { return }
-            self.bill.imageUrl = url
-        }
+        createBillVM.createBillImage(imageData: imageData)
         dismiss(animated: true)
     }
 }
 // MARK: - UICollectionViewDataSource
 extension CreateBillViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let users = userList else { return 0 }
-        return users.count
+        createBillVM.numberOfUsers()
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WhoIsSharingCell.WhoIsSharingIdentifier.custom.rawValue, for: indexPath) as! WhoIsSharingCell
-        if let user = userList?[indexPath.item] {
-            cell.user = user
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WhoIsSharingCell.WhoIsSharingIdentifier.custom.rawValue
+                                                      , for: indexPath) as! WhoIsSharingCell
+        cell.user = createBillVM.cellForItem(at: indexPath)
         cell.delegate = self
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let user = userList?[indexPath.item] {
-            bill.splitUser?.append(user)
-        }
+        createBillVM.didSelectItem(at: indexPath)
     }
 }
+
 // MARK: - UICollectionViewDelegateFlowLayout
 extension CreateBillViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width , height: 80)
     }
 }
+
 // MARK: DidSelectUserProtocol
 extension CreateBillViewController: DidSelectUserProtocol {
-    func didSelectWhoIsPayUser(user: User) {
-        bill.payingUser = user
+    func didSelectWhoIsPayUser(user: User,isSelected: Bool) {
+        createBillVM.didSelectWhoIsPayUser(user: user, isSelected: isSelected)
     }
 }
 // MARK: - UpdateUserProtocol
 extension CreateBillViewController: UpdateUserProtocol {
     func updateUser(user: User) {
-        if user.isChecked { bill.splitUser?.append(user) }
-        else { bill.splitUser?.removeAll { $0.id == user.id } }
-        createUserVM.updateUser(user: user)
-        fechtUsers()
+        createBillVM.updateUserCheckBox(user: user)
     }
 }
+
 // MARK: - Helpers
 extension CreateBillViewController {
-    func fechtUsers() {
-        createUserVM.fechtUsers { response, error in
-            if error != nil { print(error?.localizedDescription ?? ""); return}
-            if let users = response {
-                self.userList = users
-            }
-        }
-    }
     private func style() {
-        view.backgroundColor =  UIColor(named: "background")
-        navigationItem.title = "NEW Bill"
-        collectionView.layer.cornerRadius = 30
-        collectionView.backgroundColor = .lightText
-        collectionView.allowsMultipleSelection = true
-        collectionView.register(WhoIsSharingCell.self, forCellWithReuseIdentifier: WhoIsSharingCell.WhoIsSharingIdentifier.custom.rawValue)
         let views: [UIView] = [collectionView,imageContainer,billImage,amountTextField,amountLabel,titleTextField,titleLabel,dateLabel,datePicker,whoIsPayVC.view,whoIsPayLabel,saveButton,splitWithLabel,addUserButton,addLabel,addUPayUserButton,addPayLabel]
         views.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false

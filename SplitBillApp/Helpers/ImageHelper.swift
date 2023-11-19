@@ -9,7 +9,7 @@ import FirebaseStorage
 import Foundation
 
 struct ImageHelper {
-    func createAndThrowURL(fileName: String,data: Data,completion: @escaping (String?) -> Void)  {
+    func createAndReturnURL(fileName: String,data: Data,completion: @escaping (String?) -> Void)  {
         let pathName = "\(UUID().uuidString)/\(fileName).jpg"
         let imageRef = Storage.storage().reference().child(pathName)
         imageRef.putData(data, metadata: nil) { _, error in
