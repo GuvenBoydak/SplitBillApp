@@ -7,16 +7,15 @@
 
 
 import UIKit
+
 protocol WhoIsPayViewModelProtocol {
     var view: WhoIsPayViewProtocol? { get set}
     func numberOfUsers() -> Int
     func fechtUsers()
-    func viwDidLoad()
+    func viewDidLoad()
     func cellForItem(at indexPath: IndexPath) -> (User,UIColor)
     func didSelectItem(at indexPath: IndexPath)
-    
 }
-
 
 final class WhoIsPayViewModel: WhoIsPayViewModelProtocol {
     var users = [User]()
@@ -24,7 +23,7 @@ final class WhoIsPayViewModel: WhoIsPayViewModelProtocol {
     weak var delegate: DidSelectUserProtocol?
     
     var selectedUser = ""
-    func viwDidLoad() {
+    func viewDidLoad() {
         view?.prepareView()
     }
     

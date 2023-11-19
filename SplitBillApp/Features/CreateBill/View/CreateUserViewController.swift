@@ -7,7 +7,7 @@
 
 import UIKit
 protocol CreateUserViewProtocol: AnyObject {
-    func viewDidLoad()
+    func prepareView()
 }
 
 final class CreateUserViewController: UIViewController {
@@ -88,7 +88,8 @@ final class CreateUserViewController: UIViewController {
     // MARK: - Life Cycle
     override func loadView() {
         super.loadView()
-        prepaerPresenter()
+        createUserVM.view = self
+        createUserVM.view?.prepareView()
     }
 }
 
@@ -99,7 +100,7 @@ extension CreateUserViewController {
                 ,let lastname = lastnameTextField.text
                 , let email = emailTextField.text
                 ,let imageData = UIImage(systemName: "person.circle")?.pngData() else { return }
-        var user = User(id: ""
+        let user = User(id: ""
                         , firstname: firstname
                         , lastname: lastname
                         , email: email
@@ -132,7 +133,7 @@ extension CreateUserViewController: UIImagePickerControllerDelegate, UINavigatio
 
 //MARK: - CreateUserViewProtocol
 extension CreateUserViewController: CreateUserViewProtocol {
-    func prepaerPresenter() {
+    func prepareView() {
         createUserVM.view = self
         style()
         layout()

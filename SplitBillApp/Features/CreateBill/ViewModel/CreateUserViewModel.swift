@@ -21,11 +21,13 @@ final class CreateUserViewModel:CreateUserViewModelProtocol {
     var isImageSelected = false
     
     func viewDidLoad() {
-        view?.viewDidLoad()
+        view?.prepareView()
     }
+    
     func createUser(user: User,imageData: Data) {
         UserService.shared.createUser(user: user, isImageSelected: isImageSelected, imageUrl: imageUrl, imageData: imageData)
     }
+    
     func createUserImage(imageData: Data) {
         ImageHelper().createAndReturnURL(fileName: UUID().uuidString, data: imageData) { (url) in
             guard let url = url else { return }

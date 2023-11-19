@@ -15,7 +15,7 @@ final class WhoIsPayViewController: UICollectionViewController {
     // MARK: - UIElements
 
     // MARK: - Properties
-    private lazy var whoIsPayVM = WhoIsPayViewModel()
+     lazy var whoIsPayVM = WhoIsPayViewModel()
     
     // MARK: - Life Cycle
     init() {
@@ -29,7 +29,8 @@ final class WhoIsPayViewController: UICollectionViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView()
+        whoIsPayVM.view = self
+        whoIsPayVM.viewDidLoad()
     }
 }
 
@@ -62,7 +63,6 @@ extension WhoIsPayViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - WhoIsPayViewProtocol
 extension WhoIsPayViewController: WhoIsPayViewProtocol {
     func prepareView() {
-        whoIsPayVM.view = self
         collectionView.layer.cornerRadius = 30
         collectionView.backgroundColor = .lightGray
         collectionView.register(WhoIsPayCell.self, forCellWithReuseIdentifier: WhoIsPayCell.WhoIsPayIdentifier.custom.rawValue)

@@ -24,4 +24,5 @@ struct User {
         self.imageUrl = imageUrl
         self.isChecked = isChecked
     }
+
 }
