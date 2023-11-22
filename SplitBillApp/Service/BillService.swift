@@ -10,30 +10,29 @@ import Foundation
 final class BillService {
     static var shared = BillService()
     
-    func createBill(bill: Bill) {
+    func createBill(bill: Bill) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
         guard let amount = bill.amount
                 ,let title = bill.title
-                ,let date = bill.date
-                ,let time = bill.time
                 ,let payingUser = bill.payingUser
-                ,let splitUser = bill.splitUser
-                ,let transantionId = bill.transaction?.id else { return}
+                ,let splitUser = bill.splitUser 
+                ,let transantionId = bill.transaction?.id else { return ""}
         let params : [String:Any] = ["id":"",
                                      "title":title,
                                      "amount":amount,
-                                     "date":date,
-                                     "time":time,
+                                     "date":bill.date ?? dateFormatter.string(from: Date()) ,
+                                     "time":bill.time ?? "",
                                      "payingUserId":payingUser.id,
                                      "splitUsersId":splitUser.map{$0.id},
                                      "imageURL":bill.imageUrl ?? "",
-                                     "transactionId":"j56G63igVIdzxENzIuE7"]
-        FIREBASE_BILL.addDocument(data: params) { error in
-            if error != nil { print(error?.localizedDescription ?? ""); return}
-        }
+                                     "transactionId": transantionId]
+        return FIREBASE_BILL.addDocument(data: params).documentID
     }
     
     func fetchBills(transactionId: String) async throws -> [Bill] {
-        let snapshot = try await FIREBASE_BILL.whereField("transactionId", isEqualTo: "j56G63igVIdzxENzIuE7").getDocuments()
+        let snapshot = try await FIREBASE_BILL.whereField("transactionId", isEqualTo: transactionId).getDocuments()
         
         var bills: [Bill] = []
 
@@ -51,7 +50,7 @@ final class BillService {
             var bill = Bill(id: id, title: title, amount: amount, date: date, time: time, imageUrl: imageURL)
 
             bill.payingUser = try await UserService.shared.fetchPayingUser(payingUser)
-            bill.splitUser = try await UserService.shared.fetchSplitUsers(splitUser)
+            bill.splitUser = try await UserService.shared.fetchSplitUsers(splitUser,transactionId: transactionId)
 
             bills.append(bill)
         }
@@ -74,11 +73,12 @@ final class BillService {
                 let imageURL = data["imageURL"] as? String ?? ""
                 let payingUser = data["payingUserId"] as? String ?? ""
                 let splitUser = data["splitUsersId"] as? [String] ?? []
+                let transactionId = data["transactionId"] as? String ?? ""
                 
                 var bill = Bill(id: id, title: title, amount: amount, date: date, time: time, imageUrl: imageURL)
                 
                 bill.payingUser = try await UserService.shared.fetchPayingUser(payingUser)
-                bill.splitUser = try await UserService.shared.fetchSplitUsers(splitUser)
+                bill.splitUser = try await UserService.shared.fetchSplitUsers(splitUser,transactionId: transactionId)
                 
                 bills.append(bill)
             }

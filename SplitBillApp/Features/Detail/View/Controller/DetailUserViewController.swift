@@ -21,7 +21,6 @@ final class DetailUserViewController: UITableViewController {
     init() {
         super.init(style: .plain)
         style()
-        tableView.isScrollEnabled = false
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

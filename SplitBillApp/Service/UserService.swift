@@ -16,7 +16,8 @@ final class UserService {
                                      "lastname": user.lastname ,
                                      "email": user.email ,
                                      "isChecked": user.isChecked ,
-                                     "imageURL": user.imageUrl ]
+                                     "imageURL": user.imageUrl ,
+                                     "transactionId": user.transactionId ]
         if isImageSelected {
             params["imageURL"] = imageUrl
         } else {
@@ -31,59 +32,75 @@ final class UserService {
         }
     }
     
-    func fechtUsers(complation: @escaping ([User]?,Error?) -> ()) {
-        FIREBASE_USER.addSnapshotListener { snapshot, error in
-            if let error = error { 
-                complation(nil,error);
-                return }
+    func fetchUsers(transactionId: String, completion: @escaping ([User]?, Error?) -> ()) {     
+        var users = [User]()
+        
+        FIREBASE_USER.getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
             
-            let userList: [User] = snapshot?.documents.compactMap { document in
+            guard let documents = snapshot?.documents else {
+                completion(nil, nil); return
+            }
+            //users.removeAll()
+            
+            for document in documents {
                 let data = document.data()
                 let id = document.documentID
-                let firstname = data["firstname"] as? String ?? ""
-                let lastname = data["lastname"] as? String ?? ""
-                let email = data["email"] as? String ?? ""
-                let imageUrl = data["imageURL"] as? String ?? ""
-                let isChecked = data["isChecked"] as? Bool ?? false
+                let transaction = data["transactionId"] as? String ?? ""
                 
-                return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageUrl,isChecked: isChecked)
-            } ?? []
-            complation(userList,nil)
+                if transaction == transactionId {
+                    let firstname = data["firstname"] as? String ?? ""
+                    let lastname = data["lastname"] as? String ?? ""
+                    
+                    let email = data["email"] as? String ?? ""
+                    let imageUrl = data["imageURL"] as? String ?? ""
+                    let isChecked = data["isChecked"] as? Bool ?? false
+                    
+                    users.append(User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageUrl,isChecked: isChecked,transactionId: transactionId))
+                }
+            }
+            completion(users, nil)
         }
     }
     
-    func fetchPayingUser(_ userId: String) async throws -> User {
+    func fetchPayingUser(_ userId: String) async throws -> User? {
         let snapshot = try await FIREBASE_USER.document(userId).getDocument()
 
-         let id = snapshot.documentID
+            let id = snapshot.documentID
         if let data = snapshot.data() {
             let firstname = data["firstname"] as? String ?? ""
             let lastname = data["lastname"] as? String ?? ""
             let email = data["email"] as? String ?? ""
             let imageURL = data["imageURL"] as? String ?? ""
             let isChecked = data["isChecked"] as? Bool ?? false
+            let transactionId = data["transactionId"] as? String ?? ""
             
-            return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageURL, isChecked: isChecked)
+            return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageURL, isChecked: isChecked,transactionId: transactionId)
         }
-        return User(id: "", firstname: "", lastname: "", email: "", imageUrl: "", isChecked: false)
+        return nil
     }
     
-    func fetchSplitUsers(_ userIds: [String]) async throws -> [User] {
+    func fetchSplitUsers(_ userIds: [String],transactionId: String) async throws -> [User] {
+        var users = [User]()
         let snapshot = try await FIREBASE_USER.getDocuments()
-
-        let users: [User] = snapshot.documents.compactMap { document in
+        users.removeAll()
+        
+        for document in snapshot.documents {
             let data = document.data()
             let id = document.documentID
-            guard userIds.contains(id),
-                  let firstname = data["firstname"] as? String,
-                  let lastname = data["lastname"] as? String,
-                  let email = data["email"] as? String,
-                  let imageURL = data["imageURL"] as? String,
-                  let isChecked = data["isChecked"] as? Bool
-            else {
-                return nil
+            let transaction = data["transactionId"] as? String ?? ""
+            if transactionId == transaction {
+                let firstname = data["firstname"] as? String ?? ""
+                let lastname = data["lastname"] as? String ?? ""
+                let email = data["email"] as? String ?? ""
+                let imageUrl = data["imageURL"] as? String ?? ""
+                let isChecked = data["isChecked"] as? Bool ?? false
+                
+                users.append(User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageUrl,isChecked: isChecked,transactionId: transactionId))
             }
-            return User(id: id, firstname: firstname, lastname: lastname, email: email, imageUrl: imageURL, isChecked: isChecked)
         }
         return users
     }

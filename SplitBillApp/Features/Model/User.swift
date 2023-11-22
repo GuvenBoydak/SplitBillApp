@@ -14,15 +14,17 @@ struct User {
     var email: String
     var imageUrl: String
     var isChecked: Bool
+    var transactionId: String
     
     
-    init(id: String, firstname: String, lastname: String, email: String, imageUrl: String, isChecked: Bool) {
+    init(id: String, firstname: String, lastname: String, email: String, imageUrl: String, isChecked: Bool,transactionId: String) {
         self.id = id
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
         self.imageUrl = imageUrl
         self.isChecked = isChecked
+        self.transactionId = transactionId
     }
 
 }

@@ -20,7 +20,7 @@ final class DetailUserCell: UITableViewCell {
     private let profileImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
-        image.layer.cornerRadius = 22
+        image.layer.cornerRadius = 20
         image.image = UIImage(named: "aytug")
         return image
     }()
@@ -51,7 +51,7 @@ final class DetailUserCell: UITableViewCell {
     }()
     private let minusProgresBar: UIProgressView = {
        let progresBar = UIProgressView()
-        progresBar.progress = 0.4
+        progresBar.progress = 0.0
         progresBar.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         progresBar.trackTintColor = UIColor.white
         progresBar.progressTintColor = .red
@@ -59,7 +59,7 @@ final class DetailUserCell: UITableViewCell {
     }()
     private let plusProgresBar: UIProgressView = {
        let progresBar = UIProgressView()
-        progresBar.progress = 0.5
+        progresBar.progress = 0.0
         progresBar.trackTintColor = UIColor.white
         progresBar.progressTintColor = .cyan
         return progresBar
@@ -80,10 +80,6 @@ final class DetailUserCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         layout()
-        
-        if let data = detailUser {
-
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -95,8 +91,22 @@ extension DetailUserCell {
     private func configure() {
         guard let data = detailUser else { return }
         profileImage.setPicture(url: data.imageUrl)
-        if data.isPay { nameLabel.text  = ""; nameScoundLabel.text = data.name } else {  nameLabel.text = data.name ; nameScoundLabel.text = "" }
-        if data.isPay { priceSecoundLabel.text = ""; priceLabel.text  = " +\(data.amount)" } else {  priceSecoundLabel.text = "-\(data.amount)" ; priceLabel.text = ""}
+        if data.isPay {
+            nameLabel.text  = ""
+            nameScoundLabel.text = data.name
+        } else {
+            nameLabel.text = data.name
+            nameScoundLabel.text = ""
+        }
+        if data.isPay {
+            priceSecoundLabel.text = ""
+            priceLabel.text  = " +\(String(format: "%.2f", data.amount))"
+            minusProgresBar.setProgress(Float(data.amount) / 1000, animated: true)
+        } else {
+            priceSecoundLabel.text = "-\(String(format: "%.2f", data.amount))"
+            priceLabel.text = ""
+            plusProgresBar.setProgress(Float(data.amount) / 1000, animated: true)
+        }
     }
     private func setup() {
         minusContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -124,11 +134,11 @@ extension DetailUserCell {
         addSubview(minusContainer)
         addSubview(plusContainer)
         NSLayoutConstraint.activate([
-            minusContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            minusContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             minusContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
             minusContainer.widthAnchor.constraint(equalToConstant: 160),
             minusContainer.heightAnchor.constraint(equalToConstant: 45),
-            plusContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            plusContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
             plusContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
             plusContainer.widthAnchor.constraint(equalToConstant: 160),
             plusContainer.heightAnchor.constraint(equalToConstant: 45),
@@ -148,10 +158,10 @@ extension DetailUserCell {
             priceSecoundLabel.centerYAnchor.constraint(equalTo: plusProgresBar.centerYAnchor),
             nameScoundLabel.leadingAnchor.constraint(equalTo: plusProgresBar.leadingAnchor,constant: 8),
             nameScoundLabel.centerYAnchor.constraint(equalTo: plusContainer.centerYAnchor),
-            profileImage.leadingAnchor.constraint(equalTo: minusContainer.trailingAnchor),
-            profileImage.trailingAnchor.constraint(equalTo: plusContainer.leadingAnchor),
             profileImage.centerYAnchor.constraint(equalTo: plusContainer.centerYAnchor),
-            profileImage.heightAnchor.constraint(equalToConstant: 45),
+            profileImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            profileImage.heightAnchor.constraint(equalToConstant: 40),
+            profileImage.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

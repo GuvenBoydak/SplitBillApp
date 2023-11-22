@@ -38,10 +38,10 @@ final class HomeViewCell: UICollectionViewCell {
         label.textColor = .white
         return label
     }()
-    private let imageTitleLabel: UILabel = {
+    private let SplitWithLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.text = "Split with"
+        label.text = "Split With"
         return label
     }()
     private let detailTitleLabel: UILabel = {
@@ -52,15 +52,19 @@ final class HomeViewCell: UICollectionViewCell {
         label.textAlignment = .right
         return label
     }()
-    private let image: UIImageView = {
-       let image = UIImageView()
-        image.contentMode = .scaleAspectFill
-        image.layer.cornerRadius = 30
-        image.image = UIImage(named: "aytug")
-        return image
+    private let SplitWithCountLabel: UILabel = {
+       let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.text = "0"
+        label.textColor = .white
+        label.textAlignment = .right
+        return label
     }()
     // MARK: - Properties
     var titlePriceStackView: UIStackView!
+    var transaction: Transaction? {
+        didSet { configure() }
+    }
     
     // MARK: - Enums
     enum HomeIdentifier: String {
@@ -85,15 +89,15 @@ extension HomeViewCell {
         titlePriceStackView.axis = .vertical
         titlePriceStackView.spacing = 2
         titlePriceStackView.translatesAutoresizingMaskIntoConstraints = false
-        imageTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        image.translatesAutoresizingMaskIntoConstraints = false
+        SplitWithLabel.translatesAutoresizingMaskIntoConstraints = false
+        SplitWithCountLabel.translatesAutoresizingMaskIntoConstraints = false
         detailTitleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     private func layout() {
         cellContainer.addSubview(dateLabel)
         cellContainer.addSubview(titlePriceStackView)
-        cellContainer.addSubview(imageTitleLabel)
-        cellContainer.addSubview(image)
+        cellContainer.addSubview(SplitWithLabel)
+        cellContainer.addSubview(SplitWithCountLabel)
         cellContainer.addSubview(detailTitleLabel)
         addSubview(cellContainer)
         NSLayoutConstraint.activate([
@@ -105,15 +109,27 @@ extension HomeViewCell {
             dateLabel.trailingAnchor.constraint(equalTo: cellContainer.trailingAnchor, constant: -26),
             titlePriceStackView.topAnchor.constraint(equalTo: cellContainer.topAnchor, constant: 22),
             titlePriceStackView.leadingAnchor.constraint(equalTo: cellContainer.leadingAnchor, constant: 22),
-            imageTitleLabel.topAnchor.constraint(equalTo: titlePriceStackView.topAnchor, constant: 50),
-            imageTitleLabel.leadingAnchor.constraint(equalTo: cellContainer.leadingAnchor, constant: 22),
-            imageTitleLabel.trailingAnchor.constraint(equalTo: cellContainer.leadingAnchor, constant: 100),
-            image.heightAnchor.constraint(equalToConstant: 45),
-            image.widthAnchor.constraint(equalToConstant: 45),
-            image.centerYAnchor.constraint(equalTo: imageTitleLabel.centerYAnchor),
-            image.leadingAnchor.constraint(equalTo: imageTitleLabel.leadingAnchor, constant: 80),
-            detailTitleLabel.bottomAnchor.constraint(equalTo: cellContainer.bottomAnchor, constant: -8),
+            SplitWithLabel.topAnchor.constraint(equalTo: titlePriceStackView.topAnchor, constant: 50),
+            SplitWithLabel.leadingAnchor.constraint(equalTo: cellContainer.leadingAnchor, constant: 22),
+            SplitWithLabel.trailingAnchor.constraint(equalTo: cellContainer.leadingAnchor, constant: 100),
+            SplitWithCountLabel.heightAnchor.constraint(equalToConstant: 20),
+            SplitWithCountLabel.centerYAnchor.constraint(equalTo: SplitWithLabel.centerYAnchor),
+            SplitWithCountLabel.leadingAnchor.constraint(equalTo: SplitWithLabel.trailingAnchor,constant: 8),
+            detailTitleLabel.centerYAnchor.constraint(equalTo: SplitWithLabel.centerYAnchor),
             detailTitleLabel.trailingAnchor.constraint(equalTo: cellContainer.trailingAnchor, constant: -26)
         ])
+    }
+    private func configure() {
+        guard let data = transaction else { return }
+        let totalPrice = data.bill?.reduce(0) { result, bill in
+            return result + (bill.amount ?? 0)
+        }
+        priceLabel.text = "\(totalPrice ?? 0) TL"
+        if data.updatedDate == "" {
+            dateLabel.text = "\(data.createdDate ?? "") - \(data.createdDate ?? "")"
+        } else {
+            dateLabel.text = "\(data.createdDate ?? "") - \(data.updatedDate ?? "")"
+        }
+        SplitWithCountLabel.text = "\(data.bill?.count ?? data.bill?[0].splitUser?.count ?? 0)"
     }
 }
