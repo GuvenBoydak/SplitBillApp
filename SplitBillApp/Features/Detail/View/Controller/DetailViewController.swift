@@ -137,6 +137,8 @@ extension DetailViewController: DetailViewProtocol {
 // MARK: - Helpers
 extension DetailViewController {
     private func style() {
+        view.backgroundColor = UIColor(named: "background")
+        collectionView.backgroundColor = UIColor(named: "background")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         detailUserVC.view.translatesAutoresizingMaskIntoConstraints = false
         detailContainer.translatesAutoresizingMaskIntoConstraints = false

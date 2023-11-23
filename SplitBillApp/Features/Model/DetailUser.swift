@@ -14,8 +14,4 @@ struct DetailUser {
     var isPay: Bool
     var imageUrl: String
     
-    mutating func updateAmount(newAmount: Double) {
-         self.amount = newAmount
-     }
-    
 }

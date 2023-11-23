@@ -65,18 +65,6 @@ extension DetailViewModel: DetailViewModelProtocol {
                 let isPaying = bill.payingUser?.id == $0.id
                 let userAmount = isPaying ? (amount * Double((userCount - 1))) : amount
             
-               if detailUsers.count > 0 {
-                    for index in detailUsers.indices {
-                        if $0.id == detailUsers[index].id && bill.payingUser?.id == detailUsers[index].id {
-                            let price = detailUsers[index].isPay ? detailUsers[index].amount + userAmount : detailUsers[index].amount - userAmount
-                            detailUsers[index].updateAmount(newAmount: price)
-                        } else {
-                            let price = detailUsers[index].isPay ? detailUsers[index].amount - userAmount : detailUsers[index].amount + userAmount
-                            detailUsers[index].updateAmount(newAmount: price)
-                        }
-                    }
-                }
-                
                 return DetailUser(
                     id: $0.id,
                     amount: userAmount,

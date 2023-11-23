@@ -29,6 +29,7 @@ final class DetailUserViewController: UITableViewController {
 // MARK: - Helpers
 extension DetailUserViewController {
     private func style() {
+        tableView.backgroundColor =  UIColor(named: "background")
         tableView.allowsSelection = false
         tableView.register(DetailUserCell.self, forCellReuseIdentifier: DetailUserCell.DetailUserIdentifier.custom.rawValue)
     }

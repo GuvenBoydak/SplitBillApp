@@ -13,7 +13,7 @@ final class DetailCell: UICollectionViewCell {
        let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 25
-        image.image = UIImage(named: "aytug")
+        image.image = UIImage(named: "document")
         return image
     }()
     private let nameLabel: UILabel = {

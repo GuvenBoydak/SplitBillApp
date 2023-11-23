@@ -42,7 +42,7 @@ final class HomeViewController: UICollectionViewController {
 // MARK: - Selectors
 extension HomeViewController {
     @objc private func addNewTransaction() {
-        let alertController = UIAlertController(title: "Dikkat", message: "Yeni bir Transaction olusturacaksiniz EMINMISINIZ?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Dikkat", message: "Yeni bir Transaction oluşturacaksınız EMİNMİSİNİZ?", preferredStyle: .alert)
         let okeyActions = UIAlertAction(title: "Evet", style: .default) { _ in
             let transactionId = self.homeVM.createTransaction()
             self.pushViewController(transactionId: transactionId)
@@ -110,6 +110,9 @@ extension HomeViewController: HomeViewProtocol {
 // MARK: - Helpers
 extension HomeViewController {
     private func style() {
+        navigationItem.title = "Split Bill App"
+        view.backgroundColor = UIColor(named: "background")
+        collectionView.backgroundColor = UIColor(named: "background")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
     }

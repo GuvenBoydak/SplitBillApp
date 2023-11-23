@@ -21,7 +21,8 @@ final class DetailUserCell: UITableViewCell {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 20
-        image.image = UIImage(named: "aytug")
+        image.image = UIImage(systemName: "person.circle")
+        image.tintColor = .black
         return image
     }()
     private let priceLabel: UILabel = {

@@ -130,6 +130,6 @@ extension HomeViewCell {
         } else {
             dateLabel.text = "\(data.createdDate ?? "") - \(data.updatedDate ?? "")"
         }
-        SplitWithCountLabel.text = "\(data.bill?.count ?? data.bill?[0].splitUser?.count ?? 0)"
+        SplitWithCountLabel.text = "\(data.bill?.count != 0 ? data.bill?[0].splitUser?.count ?? 0 : 0)"
     }
 }
