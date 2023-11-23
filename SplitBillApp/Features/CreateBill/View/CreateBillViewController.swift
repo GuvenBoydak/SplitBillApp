@@ -12,6 +12,7 @@ protocol DidSelectUserProtocol: AnyObject {
 protocol CreateBillViewProtocol: AnyObject {
     func reloadData()
     func prepareView()
+    func prepareWillAppear()
 }
 
 extension CreateBillViewController: CreateBillViewProtocol {
@@ -43,8 +44,11 @@ extension CreateBillViewController: CreateBillViewProtocol {
                                     for: .touchUpInside)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(billImageTapped))
         billImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    func prepareWillAppear() {
         whoIsPayVC.whoIsPayVM.delegate = self
-        createBillVM.fechtUsers()
+        whoIsPayVC.transactionId = transactionId
+        createBillVM.fechtUsers(transactionId: transactionId)
     }
 }
 
@@ -60,7 +64,7 @@ final class CreateBillViewController: UICollectionViewController {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 20
-        image.image = UIImage(named: "aytug")
+        image.image = UIImage(named: "add")
         image.isUserInteractionEnabled = true
         return image
     }()
@@ -145,8 +149,9 @@ final class CreateBillViewController: UICollectionViewController {
         return label
     }()
     // MARK: - Properties
-    lazy  var createBillVM = CreateBillViewModel()
+    lazy var createBillVM = CreateBillViewModel()
     var whoIsPayVC = WhoIsPayViewController()
+    var transactionId = ""
     
     // MARK: - Life Cycle
     init() {
@@ -156,21 +161,28 @@ final class CreateBillViewController: UICollectionViewController {
         createBillVM.view = self
         createBillVM.viewDidLoad()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        createBillVM.willAppear()
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 // MARK: - Selector {
 extension CreateBillViewController {
-   @objc private func addBill() {
-       if let amount = Double(amountTextField.text ?? "0.0"),let title = titleTextField.text {
-           createBillVM.bill.amount = amount
-           createBillVM.bill.title = title
-           
-           createBillVM.createNewBill()
-           navigationController?.popViewController(animated: true)
-       }
+    @objc private func addBill() {
+        if let amount = Double(amountTextField.text ?? "0.0"),let title = titleTextField.text {
+            createBillVM.bill.amount = amount
+            createBillVM.bill.title = title
+            Task {
+                await createBillVM.fechtransaction(transactionId: transactionId)
+                createBillVM.createNewBill()
+                createBillVM.updateTransaction()
+                navigationController?.popViewController(animated: true)
+            }
+        }
     }
+    
     @objc private func getDateFromPicker(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -178,10 +190,12 @@ extension CreateBillViewController {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
         createBillVM.bill.time = timeFormatter.string(from: sender.date)
+        dismiss(animated: true)
      }
     @objc private func addUser() {
         let createUserVC = CreateUserViewController()
-        present(createUserVC, animated: true)
+        createUserVC.transactionId = transactionId
+        navigationController?.pushViewController(createUserVC, animated: true)
     }
 }
  // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -242,6 +256,7 @@ extension CreateBillViewController: UpdateUserProtocol {
 // MARK: - Helpers
 extension CreateBillViewController {
     private func style() {
+        view.backgroundColor = UIColor(named: "background")
         let views: [UIView] = [collectionView,imageContainer,billImage,amountTextField,amountLabel,titleTextField,titleLabel,dateLabel,datePicker,whoIsPayVC.view,whoIsPayLabel,saveButton,splitWithLabel,addUserButton,addLabel,addUPayUserButton,addPayLabel]
         views.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false

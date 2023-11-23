@@ -11,7 +11,8 @@ import UIKit
 protocol CreateBillViewModelProtocol {
     var view: CreateBillViewProtocol? { get set }
     func viewDidLoad()
-    func fechtUsers()
+    func willAppear()
+    func fechtUsers(transactionId: String)
     func createNewBill()
     func createBillImage(imageData: Data)
     func numberOfUsers() -> Int
@@ -19,6 +20,8 @@ protocol CreateBillViewModelProtocol {
     func didSelectItem(at indexPath: IndexPath)
     func didSelectWhoIsPayUser(user: User)
     func updateUserCheckBox(user: User)
+    func updateTransaction(transaction: Transaction)
+    func fechtransaction(transactionId: String) async -> Transaction
 }
 
 final class CreateBillViewModel {
@@ -26,24 +29,28 @@ final class CreateBillViewModel {
     var selectedUsers: [String] = []
     var bill = Bill()
     var users = [User]()
+    var transaction = Transaction()
     
     func viewDidLoad() {
         view?.prepareView()
     }
+    func willAppear() {
+        view?.prepareWillAppear()
+    }
     
-    func fechtUsers() {
-        UserService.shared.fechtUsers { result, error in
+    func fechtUsers(transactionId: String) {
+        UserService.shared.fetchUsers(transactionId: transactionId) { result, error in
             if let error = error { print(error); return }
+            self.users.removeAll()
             if let users = result {
-                self.users.removeAll()
                 self.users = users
             }
+            self.view?.reloadData()
         }
-        view?.reloadData()
     }
     
     func createNewBill() {
-        BillService.shared.createBill(bill: bill)
+        bill.id = BillService.shared.createBill(bill: bill)
     }
     
     func createBillImage(imageData: Data) {
@@ -94,5 +101,19 @@ final class CreateBillViewModel {
             selectedUsers.removeAll { $0 == user.id }
         }
         view?.reloadData()
+    }
+    
+    func updateTransaction() {
+        transaction.bill?.append(bill)
+        TransactionService.shared.updateTransaction(transaction: transaction)
+    }
+    
+    func fechtransaction(transactionId: String) async  {
+        do {
+            transaction = try await TransactionService.shared.fetchTransaction(transactionId: transactionId) ?? Transaction()
+            bill.transaction = transaction
+        } catch let error {
+            print(error)
+        }
     }
 }

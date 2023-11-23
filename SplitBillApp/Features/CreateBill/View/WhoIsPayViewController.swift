@@ -16,6 +16,11 @@ final class WhoIsPayViewController: UICollectionViewController {
 
     // MARK: - Properties
      lazy var whoIsPayVM = WhoIsPayViewModel()
+    var transactionId: String? {
+        didSet {
+            whoIsPayVM.fechtUsers(transactionId: transactionId ?? "")
+        }
+    }
     
     // MARK: - Life Cycle
     init() {
@@ -66,7 +71,7 @@ extension WhoIsPayViewController: WhoIsPayViewProtocol {
         collectionView.layer.cornerRadius = 30
         collectionView.backgroundColor = .lightGray
         collectionView.register(WhoIsPayCell.self, forCellWithReuseIdentifier: WhoIsPayCell.WhoIsPayIdentifier.custom.rawValue)
-        whoIsPayVM.fechtUsers()
+        whoIsPayVM.fechtUsers(transactionId: transactionId ?? "")
     }
     
     func reloadData() {

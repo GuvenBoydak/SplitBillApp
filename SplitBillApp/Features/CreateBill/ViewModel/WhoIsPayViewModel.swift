@@ -11,7 +11,7 @@ import UIKit
 protocol WhoIsPayViewModelProtocol {
     var view: WhoIsPayViewProtocol? { get set}
     func numberOfUsers() -> Int
-    func fechtUsers()
+    func fechtUsers(transactionId: String)
     func viewDidLoad()
     func cellForItem(at indexPath: IndexPath) -> (User,UIColor)
     func didSelectItem(at indexPath: IndexPath)
@@ -36,14 +36,15 @@ final class WhoIsPayViewModel: WhoIsPayViewModelProtocol {
         }
     }
     
-    func fechtUsers() {
-        UserService.shared.fechtUsers { users, error in
+    func fechtUsers(transactionId: String) {
+        UserService.shared.fetchUsers(transactionId: transactionId) { result, error in
             if let error = error { return }
             self.users.removeAll()
-            guard let userList = users else { return }
+            guard let userList = result else { return }
             self.users = userList
+            
+            self.view?.reloadData()
         }
-        view?.reloadData()
     }
 
     func didSelectItem(at indexPath: IndexPath)  {

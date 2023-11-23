@@ -125,7 +125,8 @@ extension WhoIsSharingCell {
                                 , lastname: user.lastname
                                 , email: user.email
                                 , imageUrl: user.imageUrl
-                                , isChecked: !(user.isChecked))
+                                , isChecked: !(user.isChecked)
+                                , transactionId: user.transactionId)
           protocolDelegate.updateUser(user: updateUser)
         }
     }

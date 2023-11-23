@@ -75,19 +75,14 @@ final class CreateUserViewController: UIViewController {
         label.text = "New User"
         return label
     }()
-    private let closeViewButton: UIButton = {
-       let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = .black
-        return button
-    }()
 
     // MARK: - Properties
-  private lazy var createUserVM = CreateUserViewModel()
+    private lazy var createUserVM = CreateUserViewModel()
+    var transactionId = ""
     
     // MARK: - Life Cycle
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         createUserVM.view = self
         createUserVM.view?.prepareView()
     }
@@ -105,9 +100,11 @@ extension CreateUserViewController {
                         , lastname: lastname
                         , email: email
                         , imageUrl: ""
-                        ,isChecked: false)
+                        ,isChecked: false
+                        ,transactionId: transactionId )
         createUserVM.createUser(user: user, imageData: imageData)
-        dismiss(animated: true)
+
+        navigationController?.popViewController(animated: true)
     }
     @objc private func closeView() {
         dismiss(animated: true)
@@ -125,7 +122,7 @@ extension CreateUserViewController: UIImagePickerControllerDelegate, UINavigatio
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
        guard let image = info[.originalImage] as? UIImage
                 ,let imageData = image.jpegData(compressionQuality: 1.0) else { return }
-       
+       self.image.image = image
        createUserVM.createUserImage(imageData: imageData)
        dismiss(animated: true)
    }
@@ -140,9 +137,6 @@ extension CreateUserViewController: CreateUserViewProtocol {
         saveButton.addTarget(self
                              , action: #selector(saveUser)
                              , for: .touchUpInside)
-        closeViewButton.addTarget(self
-                                  , action: #selector(closeView)
-                                  , for: .touchUpInside)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self
                                                           , action: #selector(imageTapped))
         image.addGestureRecognizer(tapGestureRecognizer)
@@ -153,7 +147,7 @@ extension CreateUserViewController: CreateUserViewProtocol {
 extension CreateUserViewController {
     private func style() {
         view.backgroundColor = UIColor(named: "background")
-        let views: [UIView] = [imageContainer,image,nameTextField,nameLabel,lastnameTextField,lastnameLabel,emailTextField,emailLabel,saveButton,titleLabel,closeViewButton]
+        let views: [UIView] = [imageContainer,image,nameTextField,nameLabel,lastnameTextField,lastnameLabel,emailTextField,emailLabel,saveButton,titleLabel]
         views.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(view)
@@ -162,13 +156,9 @@ extension CreateUserViewController {
     private func layout() {
         imageContainer.addSubview(image)
         NSLayoutConstraint.activate([
-            // titleLabel and closeViewButton
+            // titleLabel
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 18),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            closeViewButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
-            closeViewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            closeViewButton.widthAnchor.constraint(equalToConstant: 30),
-            closeViewButton.heightAnchor.constraint(equalToConstant: 30),
             // imageContainer and image
             imageContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             imageContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
