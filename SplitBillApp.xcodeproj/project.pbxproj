@@ -26,7 +26,6 @@
 		68BB35AB2AF640A100A8F53A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35AA2AF640A100A8F53A /* AppDelegate.swift */; };
 		68BB35AD2AF640A100A8F53A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */; };
 		68BB35B42AF640A200A8F53A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68BB35B32AF640A200A8F53A /* Assets.xcassets */; };
-		68BB35B72AF640A200A8F53A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */; };
 		68BB35C22AF640A200A8F53A /* SplitBillAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35C12AF640A200A8F53A /* SplitBillAppTests.swift */; };
 		68BB35CC2AF640A200A8F53A /* SplitBillAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35CB2AF640A200A8F53A /* SplitBillAppUITests.swift */; };
 		68BB35CE2AF640A200A8F53A /* SplitBillAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35CD2AF640A200A8F53A /* SplitBillAppUITestsLaunchTests.swift */; };
@@ -84,7 +83,6 @@
 		68BB35AA2AF640A100A8F53A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		68BB35B32AF640A200A8F53A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		68BB35B62AF640A200A8F53A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68BB35B82AF640A200A8F53A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68BB35BD2AF640A200A8F53A /* SplitBillAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitBillAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BB35C12AF640A200A8F53A /* SplitBillAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBillAppTests.swift; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				68BB35B32AF640A200A8F53A /* Assets.xcassets */,
-				68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */,
 				68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */,
 				68BB35AA2AF640A100A8F53A /* AppDelegate.swift */,
 			);
@@ -489,7 +486,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68BB35B72AF640A200A8F53A /* LaunchScreen.storyboard in Resources */,
 				68BB35B42AF640A200A8F53A /* Assets.xcassets in Resources */,
 				687E48672AF958080036A626 /* GoogleService-Info.plist in Resources */,
 			);
@@ -578,17 +574,6 @@
 			targetProxy = 68BB35C82AF640A200A8F53A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				68BB35B62AF640A200A8F53A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		68BB35CF2AF640A200A8F53A /* Debug */ = {
