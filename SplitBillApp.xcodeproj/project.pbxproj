@@ -7,15 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		685DC1942B07AE65004C9818 /* WhoIsPayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DC1932B07AE65004C9818 /* WhoIsPayViewModel.swift */; };
+		685DC1962B07B5E7004C9818 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DC1952B07B5E7004C9818 /* UserService.swift */; };
+		685DC1982B07BD98004C9818 /* BillService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DC1972B07BD98004C9818 /* BillService.swift */; };
+		687E484D2AF94D1C0036A626 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E484C2AF94D1C0036A626 /* HomeViewModel.swift */; };
+		687E48532AF94D8C0036A626 /* CreateBillViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E48522AF94D8C0036A626 /* CreateBillViewModel.swift */; };
+		687E48572AF94DDC0036A626 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E48562AF94DDC0036A626 /* Bill.swift */; };
+		687E48592AF94E880036A626 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E48582AF94E880036A626 /* User.swift */; };
+		687E485D2AF94F270036A626 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E485C2AF94F270036A626 /* Transaction.swift */; };
+		687E48652AF9531A0036A626 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E48642AF9531A0036A626 /* Constant.swift */; };
+		687E48672AF958080036A626 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 687E48662AF958080036A626 /* GoogleService-Info.plist */; };
+		6888165C2AFE993F004BF9BA /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888165B2AFE993F004BF9BA /* DetailViewModel.swift */; };
+		68AC68342AF7A1BA0084E5D6 /* CreateBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC68332AF7A1BA0084E5D6 /* CreateBillViewController.swift */; };
+		68AC683B2AF7DC330084E5D6 /* WhoIsSharingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC683A2AF7DC330084E5D6 /* WhoIsSharingCell.swift */; };
+		68AC683D2AF7ED070084E5D6 /* WhoIsPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC683C2AF7ED070084E5D6 /* WhoIsPayViewController.swift */; };
+		68AC683F2AF7ED930084E5D6 /* WhoIsPayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC683E2AF7ED930084E5D6 /* WhoIsPayCell.swift */; };
+		68AC68412AF8226E0084E5D6 /* CreateUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC68402AF8226E0084E5D6 /* CreateUserViewController.swift */; };
 		68BB35AB2AF640A100A8F53A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35AA2AF640A100A8F53A /* AppDelegate.swift */; };
 		68BB35AD2AF640A100A8F53A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */; };
-		68BB35AF2AF640A100A8F53A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35AE2AF640A100A8F53A /* ViewController.swift */; };
-		68BB35B22AF640A100A8F53A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68BB35B02AF640A100A8F53A /* Main.storyboard */; };
 		68BB35B42AF640A200A8F53A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68BB35B32AF640A200A8F53A /* Assets.xcassets */; };
 		68BB35B72AF640A200A8F53A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */; };
 		68BB35C22AF640A200A8F53A /* SplitBillAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35C12AF640A200A8F53A /* SplitBillAppTests.swift */; };
 		68BB35CC2AF640A200A8F53A /* SplitBillAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35CB2AF640A200A8F53A /* SplitBillAppUITests.swift */; };
 		68BB35CE2AF640A200A8F53A /* SplitBillAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35CD2AF640A200A8F53A /* SplitBillAppUITestsLaunchTests.swift */; };
+		68BB35E42AF642F600A8F53A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35E32AF642F600A8F53A /* HomeViewController.swift */; };
+		68BB35EE2AF65E5900A8F53A /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35ED2AF65E5900A8F53A /* HomeViewCell.swift */; };
+		68BB35F32AF6778300A8F53A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35F22AF6778300A8F53A /* DetailViewController.swift */; };
+		68BB35F52AF67B8000A8F53A /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35F42AF67B8000A8F53A /* DetailUserViewController.swift */; };
+		68BB35F82AF67C8A00A8F53A /* DetailUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35F72AF67C8A00A8F53A /* DetailUserCell.swift */; };
+		68BB35FB2AF6801300A8F53A /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB35FA2AF6801300A8F53A /* DetailCell.swift */; };
+		68D4D2682B0A505E00A319A8 /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D4D2672B0A505E00A319A8 /* TransactionService.swift */; };
+		68E974B42B05430500130BFB /* DetailUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E974B32B05430500130BFB /* DetailUser.swift */; };
+		68F247A22AF959F000F92633 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 68F247A12AF959F000F92633 /* FirebaseStorage */; };
+		68F247A42AF959F400F92633 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 68F247A32AF959F400F92633 /* FirebaseFirestore */; };
+		68F247A62AF960C900F92633 /* CreateUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F247A52AF960C900F92633 /* CreateUserViewModel.swift */; };
+		68F247AA2AF9623700F92633 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F247A92AF9623700F92633 /* ImageHelper.swift */; };
+		68F247AE2AF974B900F92633 /* ImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F247AD2AF974B900F92633 /* ImageView+Extension.swift */; };
+		68F247B12AF9753E00F92633 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 68F247B02AF9753E00F92633 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,11 +64,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		685DC1932B07AE65004C9818 /* WhoIsPayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoIsPayViewModel.swift; sourceTree = "<group>"; };
+		685DC1952B07B5E7004C9818 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		685DC1972B07BD98004C9818 /* BillService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillService.swift; sourceTree = "<group>"; };
+		687E484C2AF94D1C0036A626 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		687E48522AF94D8C0036A626 /* CreateBillViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBillViewModel.swift; sourceTree = "<group>"; };
+		687E48562AF94DDC0036A626 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
+		687E48582AF94E880036A626 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		687E485C2AF94F270036A626 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		687E48642AF9531A0036A626 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		687E48662AF958080036A626 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6888165B2AFE993F004BF9BA /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		68AC68332AF7A1BA0084E5D6 /* CreateBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBillViewController.swift; sourceTree = "<group>"; };
+		68AC683A2AF7DC330084E5D6 /* WhoIsSharingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoIsSharingCell.swift; sourceTree = "<group>"; };
+		68AC683C2AF7ED070084E5D6 /* WhoIsPayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoIsPayViewController.swift; sourceTree = "<group>"; };
+		68AC683E2AF7ED930084E5D6 /* WhoIsPayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoIsPayCell.swift; sourceTree = "<group>"; };
+		68AC68402AF8226E0084E5D6 /* CreateUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserViewController.swift; sourceTree = "<group>"; };
 		68BB35A72AF640A100A8F53A /* SplitBillApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitBillApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BB35AA2AF640A100A8F53A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		68BB35AE2AF640A100A8F53A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		68BB35B12AF640A100A8F53A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		68BB35B32AF640A200A8F53A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68BB35B62AF640A200A8F53A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68BB35B82AF640A200A8F53A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +91,17 @@
 		68BB35C72AF640A200A8F53A /* SplitBillAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitBillAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BB35CB2AF640A200A8F53A /* SplitBillAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBillAppUITests.swift; sourceTree = "<group>"; };
 		68BB35CD2AF640A200A8F53A /* SplitBillAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBillAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		68BB35E32AF642F600A8F53A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		68BB35ED2AF65E5900A8F53A /* HomeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
+		68BB35F22AF6778300A8F53A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		68BB35F42AF67B8000A8F53A /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
+		68BB35F72AF67C8A00A8F53A /* DetailUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserCell.swift; sourceTree = "<group>"; };
+		68BB35FA2AF6801300A8F53A /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
+		68D4D2672B0A505E00A319A8 /* TransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionService.swift; sourceTree = "<group>"; };
+		68E974B32B05430500130BFB /* DetailUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUser.swift; sourceTree = "<group>"; };
+		68F247A52AF960C900F92633 /* CreateUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserViewModel.swift; sourceTree = "<group>"; };
+		68F247A92AF9623700F92633 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		68F247AD2AF974B900F92633 /* ImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +109,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68F247B12AF9753E00F92633 /* Kingfisher in Frameworks */,
+				68F247A22AF959F000F92633 /* FirebaseStorage in Frameworks */,
+				68F247A42AF959F400F92633 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,13 +132,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		687E48632AF953080036A626 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				68F247AB2AF9748D00F92633 /* Extension */,
+				687E48642AF9531A0036A626 /* Constant.swift */,
+				68F247A92AF9623700F92633 /* ImageHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		68AC68302AF7A1690084E5D6 /* CreateBill */ = {
+			isa = PBXGroup;
+			children = (
+				68AC68322AF7A1790084E5D6 /* ViewModel */,
+				68AC68312AF7A1720084E5D6 /* View */,
+			);
+			path = CreateBill;
+			sourceTree = "<group>";
+		};
+		68AC68312AF7A1720084E5D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				68AC68352AF7C27A0084E5D6 /* Cell */,
+				68AC68332AF7A1BA0084E5D6 /* CreateBillViewController.swift */,
+				68AC683C2AF7ED070084E5D6 /* WhoIsPayViewController.swift */,
+				68AC68402AF8226E0084E5D6 /* CreateUserViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		68AC68322AF7A1790084E5D6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				687E48522AF94D8C0036A626 /* CreateBillViewModel.swift */,
+				68F247A52AF960C900F92633 /* CreateUserViewModel.swift */,
+				685DC1932B07AE65004C9818 /* WhoIsPayViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		68AC68352AF7C27A0084E5D6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				68AC683A2AF7DC330084E5D6 /* WhoIsSharingCell.swift */,
+				68AC683E2AF7ED930084E5D6 /* WhoIsPayCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		68BB359E2AF640A100A8F53A = {
 			isa = PBXGroup;
 			children = (
+				687E48662AF958080036A626 /* GoogleService-Info.plist */,
 				68BB35A92AF640A100A8F53A /* SplitBillApp */,
 				68BB35C02AF640A200A8F53A /* SplitBillAppTests */,
 				68BB35CA2AF640A200A8F53A /* SplitBillAppUITests */,
 				68BB35A82AF640A100A8F53A /* Products */,
+				68F247A02AF959F000F92633 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,12 +206,10 @@
 		68BB35A92AF640A100A8F53A /* SplitBillApp */ = {
 			isa = PBXGroup;
 			children = (
-				68BB35AA2AF640A100A8F53A /* AppDelegate.swift */,
-				68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */,
-				68BB35AE2AF640A100A8F53A /* ViewController.swift */,
-				68BB35B02AF640A100A8F53A /* Main.storyboard */,
-				68BB35B32AF640A200A8F53A /* Assets.xcassets */,
-				68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */,
+				687E48632AF953080036A626 /* Helpers */,
+				68BB35E02AF6427A00A8F53A /* Service */,
+				68BB35DC2AF6418F00A8F53A /* Features */,
+				68BB35DB2AF6417000A8F53A /* Utilities */,
 				68BB35B82AF640A200A8F53A /* Info.plist */,
 			);
 			path = SplitBillApp;
@@ -127,6 +232,150 @@
 			path = SplitBillAppUITests;
 			sourceTree = "<group>";
 		};
+		68BB35DB2AF6417000A8F53A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35B32AF640A200A8F53A /* Assets.xcassets */,
+				68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */,
+				68BB35AC2AF640A100A8F53A /* SceneDelegate.swift */,
+				68BB35AA2AF640A100A8F53A /* AppDelegate.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		68BB35DC2AF6418F00A8F53A /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				68AC68302AF7A1690084E5D6 /* CreateBill */,
+				68BB35DE2AF6420900A8F53A /* Model */,
+				68BB35EF2AF6767400A8F53A /* Detail */,
+				68BB35DD2AF6419900A8F53A /* Home */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		68BB35DD2AF6419900A8F53A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35E22AF642D700A8F53A /* ViewModel */,
+				68BB35E12AF642D100A8F53A /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		68BB35DE2AF6420900A8F53A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				687E48562AF94DDC0036A626 /* Bill.swift */,
+				687E48582AF94E880036A626 /* User.swift */,
+				687E485C2AF94F270036A626 /* Transaction.swift */,
+				68E974B32B05430500130BFB /* DetailUser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		68BB35E02AF6427A00A8F53A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				685DC1952B07B5E7004C9818 /* UserService.swift */,
+				685DC1972B07BD98004C9818 /* BillService.swift */,
+				68D4D2672B0A505E00A319A8 /* TransactionService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		68BB35E12AF642D100A8F53A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35E62AF64BDF00A8F53A /* Cell */,
+				68BB35E52AF64BC000A8F53A /* Controller */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		68BB35E22AF642D700A8F53A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				687E484C2AF94D1C0036A626 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		68BB35E52AF64BC000A8F53A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35E32AF642F600A8F53A /* HomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		68BB35E62AF64BDF00A8F53A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35ED2AF65E5900A8F53A /* HomeViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		68BB35EF2AF6767400A8F53A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35F12AF6768600A8F53A /* ViewModel */,
+				68BB35F02AF6768000A8F53A /* View */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		68BB35F02AF6768000A8F53A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35F92AF67EB500A8F53A /* Controller */,
+				68BB35F62AF67C6800A8F53A /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		68BB35F12AF6768600A8F53A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6888165B2AFE993F004BF9BA /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		68BB35F62AF67C6800A8F53A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35F72AF67C8A00A8F53A /* DetailUserCell.swift */,
+				68BB35FA2AF6801300A8F53A /* DetailCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		68BB35F92AF67EB500A8F53A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				68BB35F42AF67B8000A8F53A /* DetailUserViewController.swift */,
+				68BB35F22AF6778300A8F53A /* DetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		68F247A02AF959F000F92633 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		68F247AB2AF9748D00F92633 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				68F247AD2AF974B900F92633 /* ImageView+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +392,11 @@
 			dependencies = (
 			);
 			name = SplitBillApp;
+			packageProductDependencies = (
+				68F247A12AF959F000F92633 /* FirebaseStorage */,
+				68F247A32AF959F400F92633 /* FirebaseFirestore */,
+				68F247B02AF9753E00F92633 /* Kingfisher */,
+			);
 			productName = SplitBillApp;
 			productReference = 68BB35A72AF640A100A8F53A /* SplitBillApp.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +469,10 @@
 				Base,
 			);
 			mainGroup = 68BB359E2AF640A100A8F53A;
+			packageReferences = (
+				687E48682AF958750036A626 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				68F247AF2AF9753E00F92633 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 68BB35A82AF640A100A8F53A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,7 +491,7 @@
 			files = (
 				68BB35B72AF640A200A8F53A /* LaunchScreen.storyboard in Resources */,
 				68BB35B42AF640A200A8F53A /* Assets.xcassets in Resources */,
-				68BB35B22AF640A100A8F53A /* Main.storyboard in Resources */,
+				687E48672AF958080036A626 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +516,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68BB35AF2AF640A100A8F53A /* ViewController.swift in Sources */,
+				685DC1982B07BD98004C9818 /* BillService.swift in Sources */,
+				687E484D2AF94D1C0036A626 /* HomeViewModel.swift in Sources */,
+				685DC1942B07AE65004C9818 /* WhoIsPayViewModel.swift in Sources */,
+				68AC683B2AF7DC330084E5D6 /* WhoIsSharingCell.swift in Sources */,
+				687E485D2AF94F270036A626 /* Transaction.swift in Sources */,
+				6888165C2AFE993F004BF9BA /* DetailViewModel.swift in Sources */,
+				68BB35F82AF67C8A00A8F53A /* DetailUserCell.swift in Sources */,
+				687E48572AF94DDC0036A626 /* Bill.swift in Sources */,
+				68BB35FB2AF6801300A8F53A /* DetailCell.swift in Sources */,
 				68BB35AB2AF640A100A8F53A /* AppDelegate.swift in Sources */,
+				687E48652AF9531A0036A626 /* Constant.swift in Sources */,
+				68BB35EE2AF65E5900A8F53A /* HomeViewCell.swift in Sources */,
+				685DC1962B07B5E7004C9818 /* UserService.swift in Sources */,
+				68F247A62AF960C900F92633 /* CreateUserViewModel.swift in Sources */,
+				68AC683D2AF7ED070084E5D6 /* WhoIsPayViewController.swift in Sources */,
+				687E48592AF94E880036A626 /* User.swift in Sources */,
+				68E974B42B05430500130BFB /* DetailUser.swift in Sources */,
+				68D4D2682B0A505E00A319A8 /* TransactionService.swift in Sources */,
+				68BB35F32AF6778300A8F53A /* DetailViewController.swift in Sources */,
 				68BB35AD2AF640A100A8F53A /* SceneDelegate.swift in Sources */,
+				687E48532AF94D8C0036A626 /* CreateBillViewModel.swift in Sources */,
+				68BB35F52AF67B8000A8F53A /* DetailUserViewController.swift in Sources */,
+				68AC68412AF8226E0084E5D6 /* CreateUserViewController.swift in Sources */,
+				68BB35E42AF642F600A8F53A /* HomeViewController.swift in Sources */,
+				68F247AA2AF9623700F92633 /* ImageHelper.swift in Sources */,
+				68F247AE2AF974B900F92633 /* ImageView+Extension.swift in Sources */,
+				68AC68342AF7A1BA0084E5D6 /* CreateBillViewController.swift in Sources */,
+				68AC683F2AF7ED930084E5D6 /* WhoIsPayCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +580,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		68BB35B02AF640A100A8F53A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				68BB35B12AF640A100A8F53A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		68BB35B52AF640A200A8F53A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -446,7 +721,6 @@
 				INFOPLIST_FILE = SplitBillApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,7 +747,6 @@
 				INFOPLIST_FILE = SplitBillApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -601,6 +874,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		687E48682AF958750036A626 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.17.0;
+			};
+		};
+		68F247AF2AF9753E00F92633 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		68F247A12AF959F000F92633 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 687E48682AF958750036A626 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		68F247A32AF959F400F92633 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 687E48682AF958750036A626 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		68F247B02AF9753E00F92633 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F247AF2AF9753E00F92633 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 68BB359F2AF640A100A8F53A /* Project object */;
 }
